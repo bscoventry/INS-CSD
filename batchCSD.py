@@ -18,7 +18,7 @@ import pandas as pd
 import scipy.io as sio
 from scipy.signal import sosfiltfilt
 from kcsd import KCSD2D
-saveKW = 'LFPCSD'
+saveKW = 'LFPCSDMore'
 precurser = 'Z://PhDData//INSData//'
 dataPath = ['INS2102//02_15_21//INS_5PU_0_5PW_1ISI','INS2102//02_15_21//INS_5PU_10PW_5ISI','INS2102//02_16_21//INS_5PU_0_2PW_0_1ISI',
             'INS2102//02_16_21//INS_5PU_0_5PW_0_2ISI','INS2102//02_16_21//INS_5PU_0_7PW_0_5ISI','INS2102//02_16_21//INS_5PU_1PW_0_5ISI','INS2102//02_16_21//INS_5PU_5PW_5ISI',
@@ -135,12 +135,13 @@ for ck, word in enumerate(dataPath):
                     curE = electrodeConfig[bc,ck]
                     LFPArray[curE] = mLFP[bc,ck,:]
             
-            k = KCSD2D(ele_pos, LFPArray, h=1, sigma=1,xmin=0.0, xmax=1.75,ymin=0.0, ymax=0.375, ext_x=0.5,ext_y=0.5,n_src_init=1000, src_type='gauss', R_init=1.)
-            k.cross_validate(Rs=np.linspace(0.01, 0.15, 15))
+            k = KCSD2D(ele_pos, LFPArray, h=1, sigma=1,xmin=0.0, xmax=1.75,ymin=0.0, ymax=0.375, ext_x=0.5,ext_y=0.5,n_src_init=1000, src_type='gauss', R_init=5.)
+            k.cross_validate(Rs=np.linspace(0.01, 0.5, 150))
             est_csd = k.values('CSD')
             df.loc[-1] = [word,float(energy),ISI,NPul,est_csd,k.estm_x,k.estm_y]
             df.index = df.index + 1  # shifting index
             df = df.sort_index()  # sorting by index
+            
     except Exception as error:
         # handle the exception
         print("An exception occurred:", type(error).__name__, "–", error) # An exception occurred: ZeroDivisionError – division by zero
