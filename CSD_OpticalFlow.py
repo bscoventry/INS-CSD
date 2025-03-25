@@ -88,9 +88,9 @@ maxSource = {}
 elecX = np.array((0,0.25,0.5,0.75,1,1.25,1.5,1.75))
 elecY = np.array((0,0.375))
 n_components = 16
-df['Flow'] = np.Nan
-df['Mag'] = np.Nan
-df['Ang'] = np.Nan
+df['Flow'] = ""
+df['Mag'] = ""
+df['Ang'] = ""
 for ck in range(numrows):
     PW = parsePW(df.DataID[ck])
     ISI = df.ISI[ck]
@@ -114,7 +114,9 @@ for ck in range(numrows):
         magVec.append(mag)
         angVec.append(ang)
         prev = newCSD[:,:,bc]
+    
     df['Flow'][ck] = FlowVec
     df['Mag'][ck] = magVec
     df['Ang'][ck] = angVec
-
+pdb.set_trace()
+df.to_pickle('opticalFlow.py')
