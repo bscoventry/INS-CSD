@@ -101,13 +101,13 @@ if __name__ == '__main__':                                            #This stat
     with pm.Model() as Heirarchical_Regression:
         # Hyperpriors for group nodes
         mu_a = pm.Normal("mu_a", mu=0.0, sigma=1)
-        sigma_a = pm.HalfNormal("sigma_a", 5)
+        sigma_a = pm.HalfNormal("sigma_a", 1)
         mu_b = pm.Normal("mu_b", mu=0.0, sigma=1)
-        sigma_b = pm.HalfNormal("sigma_b", 5)
+        sigma_b = pm.HalfNormal("sigma_b", 1)
         mu_b2 = pm.Normal("mu_b2",mu=0.0, sigma=1)
-        sigma_b2 = pm.HalfNormal("sigma_b2",5)
+        sigma_b2 = pm.HalfNormal("sigma_b2",1)
         mu_b3 = pm.Normal("mu_b3", 1)
-        sigma_b3 = pm.HalfNormal("sigma_b3",5)
+        sigma_b3 = pm.HalfNormal("sigma_b3",1)
         
         sigma_nu = pm.Exponential("sigma_nu",5.0)
         #Base layer
